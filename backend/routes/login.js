@@ -18,7 +18,7 @@ router.post("/login",  (req, res, next) => { // req is request, res is response
 				const user = await User.findOne({
 					username: req.user.username
 				})
-				if(user.type==="Admin" && user.department===undefined)
+				if(user.type==="Admin" && user.department!="Warden" && user.department!="Student" && user.department!="Campus")
 				{
 					var redir = { redirect: "/admin" , message:"admin Login Successfully" , userName:req.user.username , user: user};
 		        }else if(user.type==="Admin" && user.department==="Warden")

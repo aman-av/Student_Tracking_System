@@ -65,3 +65,7 @@ app.use(createStudent)
 
 const campusTiming = require('./routes/campusTiming')                        //Login route
 app.use(campusTiming)
+
+const hostelTiming = require('./routes/hostelTiming')                        //Login route
+app.use(hostelTiming)
+
