@@ -18,7 +18,7 @@ router.post("/login",  (req, res, next) => { // req is request, res is response
 				const user = await User.findOne({
 					username: req.user.username
 				})
-				if(user.type==="Admin" && user.department===undefined)
+				if(user.type==="Admin" && user.department!=="Warden"&&user.department!=="Student"&&user.department!=="Campus")
 				{
 					var redir = { redirect: "/admin" , message:"admin Login Successfully" , userName:req.user.username , user: user};
 		        }else if(user.type==="Admin" && user.department==="Warden")
@@ -26,7 +26,7 @@ router.post("/login",  (req, res, next) => { // req is request, res is response
           			var redir = { redirect: "/warden" , message:"warden Login Successfully" , userName:req.user.username , user: user};
 				}else if(user.type==="Admin" && user.department==="Campus")
 				{
-          			var redir = { redirect: "/warden" , message:"campusn Login Successfully" , userName:req.user.username , user: user};
+          			var redir = { redirect: "/campus" , message:"campusn Login Successfully" , userName:req.user.username , user: user};
 				}else{
 					var redir = { redirect: "/student" , message:"student Login Successfully" , userName:req.user.username , user: user};	
 				}

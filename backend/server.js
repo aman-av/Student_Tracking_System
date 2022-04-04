@@ -4,7 +4,11 @@ const res = require('dotenv').config()
 
 const express = require("express");
 const app = express();
-
+const twilio = require('twilio'); 
+//twilio requirements -- Texting API 
+const accountSid = 'AC9ad0084bd398862b8f5348c7787d440e';
+const authToken = 'ee2954277e1e6eb64816ec2edd4203fa'; 
+const client = new twilio(accountSid, authToken);
 const server = require('http').Server(app)
 // socket io is required for successful connection between peers
 const io = require('socket.io')(server)
@@ -57,6 +61,22 @@ app.use(passport.initialize());
 app.use(passport.session());
 require("./config/passport-config")(passport);
 
+function sms(){
+	var today = new Date();
+	var time = today.getHours() + ":" + today.getMinutes()
+	if(time==="20:00"){
+		client.messages.create({
+			body: 'Hello',
+			to: '+919123600426',  // Text this number
+			from: '+19528003874' // From a valid Twilio number
+		}).then((message) => console.log(message.body));
+	}
+	setTimeout(sms, 1000*60*60*24);
+  }
+  sms()
+
+
+
 const loginRoute = require('./routes/login')                        //Login route
 app.use(loginRoute)
 
@@ -65,3 +85,15 @@ app.use(createStudent)
 
 const campusTiming = require('./routes/campusTiming')                        //Login route
 app.use(campusTiming)
+
+const hostelTiming = require('./routes/hostelTiming')                        //Login route
+app.use(hostelTiming)
+
+const vacationTiming = require('./routes/vacationTiming')                        //Login route
+app.use(vacationTiming)
+
+const getRecord = require('./routes/getRecord')                        //Login route
+app.use(getRecord)
+
+// const sendText = require('./routes/sendMessage')                        //Login route
+// app.use(sendText)

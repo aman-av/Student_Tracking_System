@@ -13,7 +13,7 @@ router.post("/createStudent",checkAuthenticated, async (req, res, next) => { // 
         const user = await User.findOne({
             username: username
         })       
-        if(user) {
+        if(user && (user.username!=undefined)) {
             var redir = { redirect: "/campus" , message:"student already exists" , userName:req.user.username , user: user};	
 			return res.json(redir);
         }else{
