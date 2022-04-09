@@ -17,7 +17,7 @@ function Warden() {
         e.preventDefault();
         console.log({username,date})
         const res = await axios.get('/hat', {
-          headers: {
+          params: {
             username: username,
             datee:date
             //   date:date
